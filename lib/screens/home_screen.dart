@@ -3,6 +3,7 @@ import 'package:doctors/shared/widgets/titles/section_title.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
 
+import '../shared/widgets/bottom_nav_bar/main_nav_bar.dart';
 import '../shared/widgets/cards/appointment_preview_card.dart';
 import '../shared/widgets/list_tiles/doctor_list_tile.dart';
 
@@ -87,6 +88,7 @@ class HomeView extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: const MainNavBar(),
     );
   }
 }
@@ -152,17 +154,14 @@ class _NearbyDoctors extends StatelessWidget {
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
+          itemCount: Doctor.sampleDoctors.length,
+          separatorBuilder: (context, index) {
+            return Divider(height: 24, color: colorScheme.surfaceVariant);
+          },
           itemBuilder: (context, index) {
             final doctor = Doctor.sampleDoctors[index];
             return DoctorListTile(doctor: doctor);
           },
-          separatorBuilder: (context, index) {
-            return Divider(
-              height: 24,
-              color: colorScheme.surfaceVariant,
-            );
-          },
-          itemCount: Doctor.sampleDoctors.length,
         ),
       ],
     );
