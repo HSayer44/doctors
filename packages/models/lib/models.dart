@@ -1,7 +1,9 @@
 library models;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/doctor_category.dart';
+export 'src/consultaion_mode.dart';
+export 'src/doctor.dart';
+export 'src/doctor_address.dart';
+export 'src/doctor_working_hours.dart';
+export 'src/doctor_package.dart';
+export 'src/clinic.dart';

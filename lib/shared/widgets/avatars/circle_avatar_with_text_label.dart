@@ -25,9 +25,9 @@ class CircleAvatarWithTextLabel extends StatelessWidget {
             label,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: colorScheme.secondary,
-                ),
+            // style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            //       color: colorScheme.secondary,
+            //     ),
           ),
         ],
       ),

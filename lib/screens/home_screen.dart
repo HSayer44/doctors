@@ -1,5 +1,9 @@
-import 'package:doctors/shared/widgets/section_title.dart';
+import 'package:doctors/shared/widgets/avatars/circle_avatar_with_text_label.dart';
+import 'package:doctors/shared/widgets/titles/section_title.dart';
 import 'package:flutter/material.dart';
+import 'package:models/models.dart';
+
+import '../shared/widgets/cards/appointment_preview_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -70,11 +74,15 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         padding: EdgeInsets.all(8),
         child: Column(
           children: [
             _DoctorCategories(),
+            SizedBox(height: 24),
+            _MySchedule(),
+            SizedBox(height: 24),
+            _NearbyDoctors(),
           ],
         ),
       ),
@@ -94,8 +102,64 @@ class _DoctorCategories extends StatelessWidget {
           action: 'See all',
           onPressed: () {},
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: DoctorCategory.values
+              .take(5)
+              .map((category) => Expanded(child: CircleAvatarWithTextLabel(icon: category.icon, label: category.name)))
+              .toList(),
+        )
 
         //ICons
+      ],
+    );
+  }
+}
+
+class _MySchedule extends StatelessWidget {
+  const _MySchedule({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SectionTitle(
+          title: 'My Schedule',
+          action: 'See all',
+          onPressed: () {},
+        ),
+        const AppointmentPreviewCard(),
+      ],
+    );
+  }
+}
+
+class _NearbyDoctors extends StatelessWidget {
+  const _NearbyDoctors({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Column(
+      children: [
+        SectionTitle(
+          title: 'Nearby Doctors',
+          action: 'See all',
+          onPressed: () {},
+        ),
+        const SizedBox(height: 8),
+        ListView.separated(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) {},
+          separatorBuilder: (context, index) {
+            return Divider(
+              height: 24,
+              color: colorScheme.surfaceVariant,
+            );
+          },
+          itemCount: 10,
+        ),
       ],
     );
   }
