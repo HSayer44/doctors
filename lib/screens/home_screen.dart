@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:models/models.dart';
 
 import '../shared/widgets/cards/appointment_preview_card.dart';
+import '../shared/widgets/list_tiles/doctor_list_tile.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -151,14 +152,17 @@ class _NearbyDoctors extends StatelessWidget {
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemBuilder: (context, index) {},
+          itemBuilder: (context, index) {
+            final doctor = Doctor.sampleDoctors[index];
+            return DoctorListTile(doctor: doctor);
+          },
           separatorBuilder: (context, index) {
             return Divider(
               height: 24,
               color: colorScheme.surfaceVariant,
             );
           },
-          itemCount: 10,
+          itemCount: Doctor.sampleDoctors.length,
         ),
       ],
     );

@@ -14,7 +14,7 @@ dependencies:
   google_maps_flutter: ^2.5.3
   uuid: ^4.2.2
   built_value: ^8.8.1
-  cloud_firestore: ^4.14.0
+#  cloud_firestore: ^4.14.0
 
 dev_dependencies:
   flutter_test:
