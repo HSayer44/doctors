@@ -58,7 +58,12 @@ class HomeView extends StatelessWidget {
                   suffixIcon: Container(
                       margin: const EdgeInsets.all(4),
                       padding: const EdgeInsets.all(8),
-                      child: const Icon(Icons.filter_alt_outlined)),
+                      decoration:
+                          BoxDecoration(color: colorScheme.onSurfaceVariant, borderRadius: BorderRadius.circular(8)),
+                      child: Icon(
+                        Icons.filter_alt_outlined,
+                        color: colorScheme.surfaceVariant,
+                      )),
                 ),
               ),
             )),
