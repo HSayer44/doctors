@@ -1,3 +1,4 @@
+import 'package:doctors/shared/widgets/section_title.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -81,7 +82,6 @@ class HomeView extends StatelessWidget {
   }
 }
 
-
 class _DoctorCategories extends StatelessWidget {
   const _DoctorCategories({super.key});
 
@@ -89,7 +89,11 @@ class _DoctorCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //SEction title
+        SectionTitle(
+          title: 'Categories',
+          action: 'See all',
+          onPressed: () {},
+        ),
 
         //ICons
       ],
