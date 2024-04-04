@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppointmentPreviewCard extends StatelessWidget {
-  const AppointmentPreviewCard({super.key});
+  final dynamic appointment;
+  const AppointmentPreviewCard({super.key, this.appointment});
 
   @override
   Widget build(BuildContext context) {

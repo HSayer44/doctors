@@ -1,7 +1,9 @@
 import 'package:doctors/shared/widgets/avatars/circle_avatar_with_text_label.dart';
 import 'package:doctors/shared/widgets/titles/section_title.dart';
+import 'package:doctors/state/home/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:models/models.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../shared/widgets/bottom_nav_bar/main_nav_bar.dart';
 import '../shared/widgets/cards/appointment_preview_card.dart';
@@ -76,17 +78,29 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.all(8),
-        child: Column(
-          children: [
-            _DoctorCategories(),
-            SizedBox(height: 24),
-            _MySchedule(),
-            SizedBox(height: 24),
-            _NearbyDoctors(),
-          ],
-        ),
+      body: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          if(state.status == HomeStatus.initial || state.status == HomeStatus.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if(state.status == HomeStatus.loaded){
+            return const SingleChildScrollView(
+              padding: EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  _DoctorCategories(),
+                  SizedBox(height: 24),
+                  _MySchedule(),
+                  SizedBox(height: 24),
+                  _NearbyDoctors(),
+                ],
+              ),
+            );
+          } else {
+            return Center(child: Text('Failed to load data'),);
+          }
+
+        }
       ),
       bottomNavigationBar: const MainNavBar(),
     );
@@ -98,6 +112,8 @@ class _DoctorCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<HomeBloc, HomeState>(
+  builder: (context, state) {
     return Column(
       children: [
         SectionTitle(
@@ -107,7 +123,7 @@ class _DoctorCategories extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: DoctorCategory.values
+          children: state.doctorCategories
               .take(5)
               .map((category) => Expanded(child: CircleAvatarWithTextLabel(icon: category.icon, label: category.name)))
               .toList(),
@@ -116,6 +132,8 @@ class _DoctorCategories extends StatelessWidget {
         //ICons
       ],
     );
+  },
+);
   }
 }
 
@@ -124,6 +142,8 @@ class _MySchedule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<HomeBloc, HomeState>(
+  builder: (context, state) {
     return Column(
       children: [
         SectionTitle(
@@ -131,9 +151,13 @@ class _MySchedule extends StatelessWidget {
           action: 'See all',
           onPressed: () {},
         ),
-        const AppointmentPreviewCard(),
+         AppointmentPreviewCard(
+            appointment: state.myAppointments.firstOrNull
+         ),
       ],
     );
+  },
+);
   }
 }
 
@@ -143,6 +167,8 @@ class _NearbyDoctors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    return BlocBuilder<HomeBloc, HomeState>(
+  builder: (context, state) {
     return Column(
       children: [
         SectionTitle(
@@ -154,16 +180,18 @@ class _NearbyDoctors extends StatelessWidget {
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: Doctor.sampleDoctors.length,
+          itemCount: state.nearbyDoctors.length,
           separatorBuilder: (context, index) {
             return Divider(height: 24, color: colorScheme.surfaceVariant);
           },
           itemBuilder: (context, index) {
-            final doctor = Doctor.sampleDoctors[index];
+            final doctor = state.nearbyDoctors[index];
             return DoctorListTile(doctor: doctor);
           },
         ),
       ],
     );
+  },
+);
   }
 }
