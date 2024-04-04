@@ -1,4 +1,5 @@
 import 'package:doctors/repositories/doctor_repository.dart';
+import 'package:doctors/screens/doctor_details_screen.dart';
 import 'package:doctors/screens/home_screen.dart';
 import 'package:doctors/shared/theme/app_theme.dart';
 import 'package:doctors/state/home/home_bloc.dart';
@@ -31,7 +32,7 @@ class AppScreen extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: const AppTheme().themeData,
-          home: const HomeScreen(),
+          home: const DoctorDetailsScreen(doctorId: ''),
         ),
       ),
     );
