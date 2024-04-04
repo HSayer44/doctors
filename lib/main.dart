@@ -32,7 +32,7 @@ class AppScreen extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: const AppTheme().themeData,
-          home: const DoctorDetailsScreen(doctorId: ''),
+          home: const HomeScreen(),
         ),
       ),
     );

@@ -17,13 +17,13 @@ class DoctorRepository {
     return Doctor.sampleDoctors;
   }
 
-  Future<List<DoctorCategory>> fetchDoctorsByCategories(String categoryId) async {
+  Future<List<Doctor>> fetchDoctorsByCategories(String categoryId) async {
     await Future.delayed(const Duration(milliseconds: 1000));
     throw UnimplementedError();
   }
 
-  Future<List<DoctorCategory>> fetchDoctorByID(String doctorId) async {
+  Future<Doctor?> fetchDoctorByID(String doctorId) async {
     await Future.delayed(const Duration(milliseconds: 1000));
-    throw UnimplementedError();
+    return Doctor.sampleDoctors.firstWhere((doctor) => doctor.id == doctorId);
   }
 }
